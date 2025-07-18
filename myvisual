@@ -69,17 +69,17 @@ end
 local function PrintAllInventoryItems()
     local items = GetAllInventoryItems()
     
-  --  print("=== LOCAL PLAYER INVENTORY ===")
-   -- print("Total items:", #items)
+    print("=== LOCAL PLAYER INVENTORY ===")
+    print("Total items:", #items)
     
     for i, item in ipairs(items) do
-        ---print(string.format("[%d] %s (UUID: %s)", i, item.ItemType, item.UUID))
+        print(string.format("[%d] %s (UUID: %s)", i, item.ItemType, item.UUID))
         if item.ItemData then
             for key, value in pairs(item.ItemData) do
-                --print(string.format("  - %s: %s", key, tostring(value)))
+                print(string.format("  - %s: %s", key, tostring(value)))
             end
         end
-        --print("---")
+        print("---")
     end
 end
 
@@ -274,23 +274,23 @@ end
 local function CloneHeldItemToInventory()
     local character = LocalPlayer.Character
     if not character then
-       -- warn("❌ No character found!")
+        warn("❌ No character found!")
         return false
     end
     
     -- Get the currently held tool
     local heldTool = character:FindFirstChildOfClass("Tool")
     if not heldTool then
-        --warn("❌ No tool currently held!")
+        warn("❌ No tool currently held!")
         return false
     end
     
-   -- print("🔧 Cloning held item:", heldTool.Name)
+    print("🔧 Cloning held item:", heldTool.Name)
     
     -- Create a visual clone tool
     local clonedTool = CreateVisualCloneTool(heldTool)
     if not clonedTool then
-       -- warn("❌ Failed to create cloned tool")
+        warn("❌ Failed to create cloned tool")
         return false
     end
     
@@ -301,12 +301,12 @@ local function CloneHeldItemToInventory()
     end)
     
     if success then
-       -- print("✅ Successfully cloned item to native inventory!")
-      --  print("  📋 Item Name: [CLONED] " .. heldTool.Name)
-       -- print("  🆔 Clone UUID:", clonedTool:GetAttribute("ITEM_UUID"))
-      --  print("  ⏰ Clone Time:", os.date("%H:%M:%S", clonedTool:GetAttribute("CLONE_TIME")))
-       -- print("  🎒 Check your inventory - the cloned item should appear!")
-       -- print("  💡 The cloned item has a green glow to distinguish it from the original")
+        print("✅ Successfully cloned item to native inventory!")
+        print("  📋 Item Name: [CLONED] " .. heldTool.Name)
+        print("  🆔 Clone UUID:", clonedTool:GetAttribute("ITEM_UUID"))
+        print("  ⏰ Clone Time:", os.date("%H:%M:%S", clonedTool:GetAttribute("CLONE_TIME")))
+        print("  🎒 Check your inventory - the cloned item should appear!")
+        print("  💡 The cloned item has a green glow to distinguish it from the original")
         return true
     else
         warn("❌ Failed to add cloned tool to Backpack")
@@ -323,13 +323,13 @@ local currentTab = "Main"
 
 -- Create the main UI
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "Ewan HUB"
+screenGui.Name = "JinxScript"
 screenGui.Parent = CoreGui
 screenGui.ResetOnSpawn = false
 
 -- Main window frame
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 600, 0, 400)
+mainFrame.Size = UDim2.new(0, 700, 0, 450)
 mainFrame.Position = UDim2.new(0.5, -350, 0.5, -225)
 mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 mainFrame.BorderSizePixel = 0
@@ -365,7 +365,7 @@ local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, -100, 1, 0)
 titleText.Position = UDim2.new(0, 20, 0, 0)
 titleText.BackgroundTransparency = 1
-titleText.Text = "Ewan Hub"
+titleText.Text = "JinxScript"
 titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleText.TextSize = 18
 titleText.Font = Enum.Font.GothamBold
@@ -410,7 +410,7 @@ minimizeCorner.Parent = minimizeButton
 
 -- Sidebar
 local sidebar = Instance.new("Frame")
-sidebar.Size = UDim2.new(0, 150, 1, -40)
+sidebar.Size = UDim2.new(0, 180, 1, -45)
 sidebar.Position = UDim2.new(0, 0, 0, 45)
 sidebar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 sidebar.BorderSizePixel = 0
@@ -450,7 +450,7 @@ minimizeButton.MouseButton1Click:Connect(function()
 end)
 -- Content area
 local contentFrame = Instance.new("ScrollingFrame")
-contentFrame.Size = UDim2.new(1, -150, 1, -40)
+contentFrame.Size = UDim2.new(1, -180, 1, -45)
 contentFrame.Position = UDim2.new(0, 180, 0, 45)
 contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 contentFrame.BorderSizePixel = 0
@@ -524,7 +524,7 @@ local tabs = {}
 -- Helper function to create sidebar tab
 function UI:CreateTab(name, icon)
     local tab = Instance.new("TextButton")
-    tab.Size = UDim2.new(1, 0, 0, 35)
+    tab.Size = UDim2.new(1, 0, 0, 45)
     tab.BackgroundColor3 = currentTab == name and Color3.fromRGB(255, 70, 70) or Color3.fromRGB(35, 35, 35)
     tab.BorderSizePixel = 0
     tab.AutoButtonColor = false
@@ -537,7 +537,7 @@ function UI:CreateTab(name, icon)
 
     -- Icon
     local tabIcon = Instance.new("TextLabel")
-    tabIcon.Size = UDim2.new(0, 18, 0, 18)
+    tabIcon.Size = UDim2.new(0, 20, 0, 20)
     tabIcon.Position = UDim2.new(0, 15, 0.5, -10)
     tabIcon.BackgroundTransparency = 1
     tabIcon.Text = icon or "🔧"
@@ -553,7 +553,7 @@ function UI:CreateTab(name, icon)
     tabLabel.BackgroundTransparency = 1
     tabLabel.Text = name
     tabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tabLabel.TextSize = 12
+    tabLabel.TextSize = 14
     tabLabel.Font = Enum.Font.Gotham
     tabLabel.TextXAlignment = Enum.TextXAlignment.Left
     tabLabel.Parent = tab
@@ -568,14 +568,14 @@ function UI:CreateTab(name, icon)
     local tabContentList = Instance.new("UIListLayout")
     tabContentList.FillDirection = Enum.FillDirection.Vertical
     tabContentList.SortOrder = Enum.SortOrder.LayoutOrder
-    tabContentList.Padding = UDim.new(0, 10)
+    tabContentList.Padding = UDim.new(0, 15)
     tabContentList.Parent = tabContent
 
     -- Special layout for Pet tab - split into three panels
     if name == "Pet" then
         -- Left panel for ESP settings
         local leftPanel = Instance.new("ScrollingFrame")
-        leftPanel.Size = UDim2.new(0.31, 0, 1, 0)
+        leftPanel.Size = UDim2.new(0.32, 0, 1, 0)
         leftPanel.Position = UDim2.new(0, 0, 0, 0)
         leftPanel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         leftPanel.BorderSizePixel = 0
@@ -602,7 +602,7 @@ function UI:CreateTab(name, icon)
         
         -- Middle panel for pet controls
         local middlePanel = Instance.new("ScrollingFrame")
-        middlePanel.Size = UDim2.new(0.31, 0, 1, 0)
+        middlePanel.Size = UDim2.new(0.32, 0, 1, 0)
         middlePanel.Position = UDim2.new(0.34, 0, 0, 0)
         middlePanel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         middlePanel.BorderSizePixel = 0
@@ -629,14 +629,14 @@ function UI:CreateTab(name, icon)
         
         -- Right panel container (for pets list and refresh button)
         local rightContainer = Instance.new("Frame")
-        rightContainer.Size = UDim2.new(0.38, 0, 1, 0)
+        rightContainer.Size = UDim2.new(0.32, 0, 1, 0)
         rightContainer.Position = UDim2.new(0.68, 0, 0, 0)
         rightContainer.BackgroundTransparency = 1
         rightContainer.Parent = tabContent
         
         -- Refresh button above right panel
         local refreshButton = Instance.new("TextButton")
-        refreshButton.Size = UDim2.new(1, 0, 0, 32)
+        refreshButton.Size = UDim2.new(1, 0, 0, 40)
         refreshButton.Position = UDim2.new(0, 0, 0, 0)
         refreshButton.BackgroundColor3 = Color3.fromRGB(255, 70, 70)
         refreshButton.Text = "Refresh Active Pets"
@@ -822,11 +822,11 @@ function UI:CreateButton(tabName, text, callback, panelType)
     end
     
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, 0, 0, 32)
+    button.Size = UDim2.new(1, 0, 0, 40)
     button.BackgroundColor3 = Color3.fromRGB(255, 70, 70)
     button.Text = text
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.TextSize = 12
+    button.TextSize = 14
     button.Font = Enum.Font.Gotham
     button.BorderSizePixel = 0
     button.Parent = targetParent
@@ -905,18 +905,18 @@ function UI:CreateSlider(tabName, text, min, max, default, callback, panelType)
     
     local sliderValue = Instance.new("TextLabel")
     sliderValue.Size = UDim2.new(0, 40, 0, 20)
-    sliderValue.Position = UDim2.new(1, -50, 0, 8)
+    sliderValue.Position = UDim2.new(1, -60, 0, 10)
     sliderValue.BackgroundTransparency = 1
     sliderValue.Text = tostring(default)
     sliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-    sliderValue.TextSize = 12
+    sliderValue.TextSize = 14
     sliderValue.Font = Enum.Font.GothamBold
     sliderValue.TextXAlignment = Enum.TextXAlignment.Right
     sliderValue.Parent = slider
     
     local sliderTrack = Instance.new("Frame")
-    sliderTrack.Size = UDim2.new(1, -35, 0, 3)
-    sliderTrack.Position = UDim2.new(0, 15, 0, 32)
+    sliderTrack.Size = UDim2.new(1, -40, 0, 4)
+    sliderTrack.Position = UDim2.new(0, 20, 0, 40)
     sliderTrack.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
     sliderTrack.BorderSizePixel = 0
     sliderTrack.Parent = slider
@@ -936,7 +936,7 @@ function UI:CreateSlider(tabName, text, min, max, default, callback, panelType)
     fillCorner.Parent = sliderFill
     
     local sliderButton = Instance.new("TextButton")
-    sliderButton.Size = UDim2.new(0, 14, 0, 14)
+    sliderButton.Size = UDim2.new(0, 16, 0, 16)
     sliderButton.Position = UDim2.new((default - min) / (max - min), -8, 0.5, -8)
     sliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     sliderButton.Text = ""
@@ -1089,7 +1089,7 @@ function UI:CreateDropdown(tabName, text, options, defaultIndex, callback, panel
     end
     
     local dropdown = Instance.new("Frame")
-    dropdown.Size = UDim2.new(1, 0, 0, 50)
+    dropdown.Size = UDim2.new(1, 0, 0, 60)
     dropdown.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     dropdown.BorderSizePixel = 0
     dropdown.Parent = targetParent
@@ -1099,12 +1099,12 @@ function UI:CreateDropdown(tabName, text, options, defaultIndex, callback, panel
     dropdownCorner.Parent = dropdown
     
     local dropdownLabel = Instance.new("TextLabel")
-    dropdownLabel.Size = UDim2.new(1, -15, 0, 18)
-    dropdownLabel.Position = UDim2.new(0, 15, 0, 8)
+    dropdownLabel.Size = UDim2.new(1, -20, 0, 20)
+    dropdownLabel.Position = UDim2.new(0, 20, 0, 10)
     dropdownLabel.BackgroundTransparency = 1
     dropdownLabel.Text = text
     dropdownLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    dropdownLabel.TextSize = 12
+    dropdownLabel.TextSize = 14
     dropdownLabel.Font = Enum.Font.Gotham
     dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left
     dropdownLabel.Parent = dropdown
@@ -1584,9 +1584,9 @@ local function refreshActivePets()
     activePetsList = getActivePets()
     
     if #activePetsList > 0 then
-       -- print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-       -- print("🎮 ACTIVE PETS LOADED (" .. #activePetsList .. ")")
-       -- print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print("🎮 ACTIVE PETS LOADED (" .. #activePetsList .. ")")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         
         -- Create checkboxes for each pet
         for i, pet in ipairs(activePetsList) do
@@ -1605,13 +1605,13 @@ local function refreshActivePets()
             end
         end
         
-      --  print("✅ Multi-select checkboxes created!")
-        --print("Click on any pet to select/deselect it")
-        --print("Switch to the Pets tab to see them!")
+        print("✅ Multi-select checkboxes created!")
+        print("Click on any pet to select/deselect it")
+        print("Switch to the Pets tab to see them!")
         
     else
-        --print("❌ No active pets found!")
-        --print("Make sure you have pets active in the game.")
+        print("❌ No active pets found!")
+        print("Make sure you have pets active in the game.")
         end
     end
 
@@ -1669,7 +1669,7 @@ local function toggleStateLoop()
             task.cancel(stateLoopThread)
             stateLoopThread = nil
         end
-        --print("🛑 Pet state loop stopped")
+        print("🛑 Pet state loop stopped")
         return false
     else
         -- Start the loop
@@ -1677,7 +1677,7 @@ local function toggleStateLoop()
         
         stateLoopThread = task.spawn(function()
             local lastStateName = ""
-            --print("🔄 Pet state loop started - Initial state: " .. petStates[selectedPetState] .. " (Interval: " .. stateSetInterval .. "s)")
+            print("🔄 Pet state loop started - Initial state: " .. petStates[selectedPetState] .. " (Interval: " .. stateSetInterval .. "s)")
             
             while isStateLoopRunning do
                 -- Get current state dynamically
@@ -1686,7 +1686,7 @@ local function toggleStateLoop()
                 -- Check if state changed mid-loop
                 if currentStateName ~= lastStateName then
                     if lastStateName ~= "" then
-                       -- print("🔄 State changed during loop: " .. lastStateName .. " → " .. currentStateName)
+                        print("🔄 State changed during loop: " .. lastStateName .. " → " .. currentStateName)
                     end
                     lastStateName = currentStateName
                 end
@@ -1698,15 +1698,15 @@ local function toggleStateLoop()
                         selectedCount = selectedCount + 1
                         local success = setPetState(uuid, currentStateName)
                         if success then
-                            --print("✅ Set " .. uuid .. " to " .. currentStateName)
+                            print("✅ Set " .. uuid .. " to " .. currentStateName)
                         else
-                            --print("❌ Failed to set " .. uuid .. " to " .. currentStateName)
+                            print("❌ Failed to set " .. uuid .. " to " .. currentStateName)
                         end
                     end
                 end
                 
                 if selectedCount == 0 then
-                    --print("⚠️ No pets selected! Select some pets first.")
+                    print("⚠️ No pets selected! Select some pets first.")
                 end
                 
                 task.wait(stateSetInterval)
@@ -1725,44 +1725,43 @@ UI:CreateTab("Pet", "🐾")
 UI:CreateTab("Misc", "🔧")
 UI:CreateTab("Player", "👤")
 
-
 -- Shop tab content
---[[UI:CreateButton("Shop", "Coming Soon...", function()
-   -- print("🛒 Shop features coming soon!")
-end)]]
+UI:CreateButton("Shop", "Coming Soon...", function()
+    print("🛒 Shop features coming soon!")
+end)
 
 -- Pet tab content - Left panel (ESP settings)
 UI:CreateToggle("Pet", "Enable ESP", true, function(state)
     espEnabled = state
     if espEnabled then 
         refreshAllESPs() 
-       -- print("✅ ESP Enabled")
+        print("✅ ESP Enabled")
     else 
         for _, data in pairs(AttachedESP) do 
             if data.Label and data.Label.Parent then 
                 data.Label.Parent.Enabled = false 
             end 
         end 
-       -- print("❌ ESP Disabled")
+        print("❌ ESP Disabled")
     end
 end, "left")
 
 UI:CreateButton("Pet", "Reroll Predictions", function()
     performReroll()
-    --print("🎲 Predictions rerolled!")
+    print("🎲 Predictions rerolled!")
 end, "left")
 
 UI:CreateSlider("Pet", "Update Interval", 1, 10, UPDATE_INTERVAL, function(value)
     UPDATE_INTERVAL = value
-   -- print("📊 Update interval set to: " .. value .. "s")
+    print("📊 Update interval set to: " .. value .. "s")
 end, "left")
 
 UI:CreateToggle("Pet", "Show Egg Names", true, function(state)
-    --print("🥚 Egg names " .. (state and "enabled" or "disabled"))
+    print("🥚 Egg names " .. (state and "enabled" or "disabled"))
 end, "left")
 
 UI:CreateToggle("Pet", "Show Timer", true, function(state)
-   -- print("⏰ Timer " .. (state and "enabled" or "disabled"))
+    print("⏰ Timer " .. (state and "enabled" or "disabled"))
 end, "left")
 
 --// --- PET MUTATION MACHINE ESP VARIABLES ---
@@ -1788,15 +1787,15 @@ end
 
 --// Function to create ESP for mutation machine (Billboard above machine)
 local function CreateMutationESP(machineModel)
-   -- print("🔧 Attempting to create ESP for: " .. tostring(machineModel.Name))
+    print("🔧 Attempting to create ESP for: " .. tostring(machineModel.Name))
     
     if not machineModel then 
-       -- print("❌ No machineModel provided")
+        print("❌ No machineModel provided")
         return 
     end
     
     if machineModel:FindFirstChild("MutationESP") then 
-       -- print("⚠️ ESP already exists for: " .. machineModel.Name)
+        print("⚠️ ESP already exists for: " .. machineModel.Name)
         return 
     end
 
@@ -1807,16 +1806,16 @@ local function CreateMutationESP(machineModel)
         for _, child in pairs(machineModel:GetChildren()) do
             if child:IsA("BasePart") then
                 attachPart = child
-                --print("🔧 Using part: " .. child.Name .. " as attach point")
+                print("🔧 Using part: " .. child.Name .. " as attach point")
                 break
             end
         end
     else
-       -- print("🔧 Using PrimaryPart: " .. attachPart.Name)
+        print("🔧 Using PrimaryPart: " .. attachPart.Name)
     end
     
     if not attachPart then
-       -- print("❌ No suitable part found to attach ESP to")
+        print("❌ No suitable part found to attach ESP to")
         return
     end
 
@@ -1847,7 +1846,7 @@ local function CreateMutationESP(machineModel)
     corner.CornerRadius = UDim.new(0, 8)
     corner.Parent = label
 
-   -- print("✅ ESP created successfully for: " .. machineModel.Name)
+    print("✅ ESP created successfully for: " .. machineModel.Name)
     return label
 end
 
@@ -1859,41 +1858,41 @@ UI:CreateButton("Pet", "Start Mutation (No Pet)", function()
     local success, error = pcall(function()
         -- Check if ReplicatedStorage and GameEvents exist
         if not ReplicatedStorage then
-           -- print("❌ ReplicatedStorage not found!")
+            print("❌ ReplicatedStorage not found!")
             return
         end
         
         local gameEvents = ReplicatedStorage:FindFirstChild("GameEvents")
         if not gameEvents then
-           -- print("❌ GameEvents not found in ReplicatedStorage!")
+            print("❌ GameEvents not found in ReplicatedStorage!")
             return
         end
         
         local mutationService = gameEvents:FindFirstChild("PetMutationMachineService_RE")
         if not mutationService then
-           -- print("❌ PetMutationMachineService_RE not found!")
+            print("❌ PetMutationMachineService_RE not found!")
             return
         end
         
         -- Get machine data to check current state
         local machineData = GetMutationMachineData()
         if not machineData then
-            --print("❌ No mutation machine data found!")
+            print("❌ No mutation machine data found!")
             return
         end
         
         if machineData.IsRunning then
-            --print("❌ Machine is already running!")
+            print("❌ Machine is already running!")
             return
         end
         
         if machineData.TimeLeft and machineData.TimeLeft > 0 then
-           -- print("❌ Machine is already processing!")
+            print("❌ Machine is already processing!")
             return
         end
         
         -- Try different server commands to start without pet
-       -- print("🧪 Attempting to start mutation machine without pet...")
+        print("🧪 Attempting to start mutation machine without pet...")
         
         -- Try various possible server commands
         local commands = {
@@ -1908,22 +1907,22 @@ UI:CreateButton("Pet", "Start Mutation (No Pet)", function()
         for _, command in ipairs(commands) do
             local cmdSuccess, cmdError = pcall(function()
                 mutationService:FireServer(command)
-               -- print("📡 Tried command: " .. command)
+                print("📡 Tried command: " .. command)
             end)
             
             if not cmdSuccess then
-               -- print("⚠️ Command " .. command .. " failed: " .. tostring(cmdError))
+                print("⚠️ Command " .. command .. " failed: " .. tostring(cmdError))
             end
             
             task.wait(0.1) -- Small delay between commands
         end
         
-       -- print("🔬 Experimental start commands sent! Check machine status.")
+        print("🔬 Experimental start commands sent! Check machine status.")
         
     end)
     
     if not success then
-       -- print("❌ Error in experimental start: " .. tostring(error))
+        print("❌ Error in experimental start: " .. tostring(error))
     end
 end, "left")
 
@@ -1932,32 +1931,32 @@ UI:CreateButton("Pet", "Submit Held Pet", function()
     local success, error = pcall(function()
         -- Check if ReplicatedStorage and GameEvents exist
         if not ReplicatedStorage then
-           -- print("❌ ReplicatedStorage not found!")
+            print("❌ ReplicatedStorage not found!")
             return
         end
         
         local gameEvents = ReplicatedStorage:FindFirstChild("GameEvents")
         if not gameEvents then
-           -- print("❌ GameEvents not found in ReplicatedStorage!")
+            print("❌ GameEvents not found in ReplicatedStorage!")
             return
         end
         
         local mutationService = gameEvents:FindFirstChild("PetMutationMachineService_RE")
         if not mutationService then
-           -- print("❌ PetMutationMachineService_RE not found!")
+            print("❌ PetMutationMachineService_RE not found!")
             return
         end
         
         -- Check if player has a pet tool equipped
         local character = LocalPlayer.Character
         if not character then
-           -- print("❌ No character found!")
+            print("❌ No character found!")
             return
         end
         
         local heldTool = character:FindFirstChildWhichIsA("Tool")
         if not heldTool then
-           -- print("❌ No tool equipped! Hold a pet first.")
+            print("❌ No tool equipped! Hold a pet first.")
             return
         end
         
@@ -1972,12 +1971,12 @@ UI:CreateButton("Pet", "Submit Held Pet", function()
         mutationService:FireServer("SubmitHeldPet")
         
         local petName = heldTool:GetAttribute("ItemName") or heldTool.Name
-        --print("🐶 Submitted pet: " .. tostring(petName))
+        print("🐶 Submitted pet: " .. tostring(petName))
         
     end)
     
     if not success then
-       -- print("❌ Error submitting pet: " .. tostring(error))
+        print("❌ Error submitting pet: " .. tostring(error))
     end
 end, "left")
 
@@ -2039,43 +2038,43 @@ UI:CreateButton("Pet", "Claim Mutated Pet", function()
     local success, error = pcall(function()
         -- Check if ReplicatedStorage and GameEvents exist
         if not ReplicatedStorage then
-           -- print("❌ ReplicatedStorage not found!")
+            print("❌ ReplicatedStorage not found!")
             return
         end
         
         local gameEvents = ReplicatedStorage:FindFirstChild("GameEvents")
         if not gameEvents then
-           -- print("❌ GameEvents not found in ReplicatedStorage!")
+            print("❌ GameEvents not found in ReplicatedStorage!")
             return
         end
         
         local mutationService = gameEvents:FindFirstChild("PetMutationMachineService_RE")
         if not mutationService then
-         --   print("❌ PetMutationMachineService_RE not found!")
+            print("❌ PetMutationMachineService_RE not found!")
             return
         end
         
         -- Get machine data to check if pet is ready
         local machineData = GetMutationMachineData()
         if not machineData then
-          --  print("❌ No mutation machine data found!")
+            print("❌ No mutation machine data found!")
             return
         end
         
         if not machineData.PetReady then
-          --  print("❌ Pet is not ready to claim yet!")
+            print("❌ Pet is not ready to claim yet!")
             return
         end
         
         -- Fire the server event to claim the pet
         mutationService:FireServer("ClaimMutatedPet")
         
-      --  print("🎉 Claimed mutated pet!")
+        print("🎉 Claimed mutated pet!")
         
     end)
     
     if not success then
-       -- print("❌ Error claiming pet: " .. tostring(error))
+        print("❌ Error claiming pet: " .. tostring(error))
     end
 end, "left")
 
@@ -2118,13 +2117,13 @@ local function cloneHighlightedModel()
     local success, error = pcall(function()
         local character = LocalPlayer.Character
         if not character or not character:FindFirstChild("HumanoidRootPart") then
-            --print("❌ Character not found!")
+            print("❌ Character not found!")
             return
         end
         
         local modelToClone = getRaycastedModel()
         if not modelToClone then
-           -- print("❌ No valid model found under cursor! Point at a plant/object to clone.")
+            print("❌ No valid model found under cursor! Point at a plant/object to clone.")
             return
         end
         
@@ -2143,11 +2142,11 @@ local function cloneHighlightedModel()
             end
         end
         
-        --print("✅ Successfully cloned: " .. modelToClone.Name)
+        print("✅ Successfully cloned: " .. modelToClone.Name)
     end)
     
     if not success then
-        --print("❌ Error cloning model: " .. tostring(error))
+        print("❌ Error cloning model: " .. tostring(error))
     end
 end
 
@@ -2156,30 +2155,30 @@ end
 -- Pet tab content - Middle panel (Pet state management)
 UI:CreateDropdown("Pet", "Pet State", petStates, 1, function(index, stateName)
     selectedPetState = index
-   -- print("🎯 Selected pet state: " .. stateName)
+    print("🎯 Selected pet state: " .. stateName)
 end, "middle")
 
 UI:CreateTextBox("Pet", "State Interval (seconds)", "2", "2", function(value)
     local numValue = tonumber(value)
     if numValue and numValue > 0 then
         stateSetInterval = numValue
-       -- print("⏱️ State interval set to: " .. numValue .. "s")
+        print("⏱️ State interval set to: " .. numValue .. "s")
     else
-      --  print("❌ Invalid interval! Please enter a positive number.")
+        print("❌ Invalid interval! Please enter a positive number.")
     end
 end, "middle")
 
 UI:CreateButton("Pet", "Start/Stop State Loop", function()
     local isRunning = toggleStateLoop()
     local buttonText = isRunning and "🟢 Set State" or "🔴 Exit State"
-    --print(buttonText)
+    print(buttonText)
 end, "middle")
 
 -- Misc tab content
 -- Helper function to create info text
 local function createInfoText(tabName, text)
     local info = Instance.new("Frame")
-    info.Size = UDim2.new(1, 0, 0, 70)
+    info.Size = UDim2.new(1, 0, 0, 80)
     info.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     info.BorderSizePixel = 0
     info.Parent = tabs[tabName] and tabs[tabName].content or contentBody
@@ -2194,7 +2193,7 @@ local function createInfoText(tabName, text)
     infoLabel.BackgroundTransparency = 1
     infoLabel.Text = text
     infoLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    infoLabel.TextSize = 10
+    infoLabel.TextSize = 12
     infoLabel.Font = Enum.Font.Gotham
     infoLabel.TextXAlignment = Enum.TextXAlignment.Left
     infoLabel.TextYAlignment = Enum.TextYAlignment.Top
@@ -2237,7 +2236,7 @@ UI:CreateButton("Player", "Unload Script", function()
     -- Destroy UI
     screenGui:Destroy()
     
-    --print("✅ Script unloaded successfully!")
+    print("✅ Script unloaded successfully!")
 end)
 
 -- Auto-refresh pets on startup
@@ -2293,10 +2292,10 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         mainFrame.Visible = not mainFrame.Visible
     elseif input.KeyCode == Enum.KeyCode.K then
         cloneHighlightedModel()
-       -- print("🔑 Clone keybinding pressed (K)")
+        print("🔑 Clone keybinding pressed (K)")
     elseif input.KeyCode == Enum.KeyCode.C then
         CloneHeldItemToInventory()
-       -- print("🔑 Inventory clone keybinding pressed (C)")
+        print("🔑 Inventory clone keybinding pressed (C)")
     end
 end)
 
@@ -2520,7 +2519,7 @@ local function refreshAllMutationESPs()
                     local mutationMachine = obj:FindFirstChild("PetMutationMachine")
                     if mutationMachine and mutationMachine:IsA("Model") then
                         table.insert(foundMachines, mutationMachine)
-                        --print("🔍 Found PetMutationMachine in: " .. obj.Name)
+                        print("🔍 Found PetMutationMachine in: " .. obj.Name)
                     end
                 end
             end
@@ -2532,7 +2531,7 @@ local function refreshAllMutationESPs()
                     end
                     if not found then 
                         table.insert(foundMachines, obj)
-                       -- print("🔍 Found PetMutationMachine: " .. obj:GetFullName())
+                        print("🔍 Found PetMutationMachine: " .. obj:GetFullName())
                     end
                 end
             end
@@ -2544,7 +2543,7 @@ local function refreshAllMutationESPs()
                 AttachESPToMutationMachine(machineModel)
             end
         else
-           -- print("⚠️ Could not find PetMutationMachine objects")
+            print("⚠️ Could not find PetMutationMachine objects")
         end
     end
 end
@@ -2740,7 +2739,7 @@ end
 -- Function to create multiselect combobox
 local function CreateMultiSelectCombobox(parent, title, options, selectedTable)
     local container = Instance.new("Frame")
-    container.Size = UDim2.new(1, 0, 0, 30)
+    container.Size = UDim2.new(1, 0, 0, 35)
     container.BackgroundTransparency = 1
     container.Parent = parent
     
@@ -2770,7 +2769,7 @@ local function CreateMultiSelectCombobox(parent, title, options, selectedTable)
     dropdownCorner.Parent = dropdown
     
     local dropdownList = Instance.new("ScrollingFrame")
-    dropdownList.Size = UDim2.new(1, 0, 0, 150)
+    dropdownList.Size = UDim2.new(1, 0, 0, 200)
     dropdownList.Position = UDim2.new(0, 0, 1, 2)
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
@@ -2847,7 +2846,7 @@ end
 -- Function to create toggle
 local function CreateShopToggle(parent, text, callback)
     local container = Instance.new("Frame")
-    container.Size = UDim2.new(1, 0, 0, 30)
+    container.Size = UDim2.new(1, 0, 0, 35)
     container.BackgroundTransparency = 1
     container.Parent = parent
     
@@ -2918,23 +2917,23 @@ end
 local function BuySeed(seedName, buyAll)
     local stock = buyAll and GetItemStock(seedName, "seed") or 1
     if stock <= 0 then
-       -- print("❌ No stock available for seed: " .. seedName)
+        print("❌ No stock available for seed: " .. seedName)
         return
     end
     
-   -- print("🌱 Buying " .. stock .. "x " .. seedName .. " seed(s)")
+    print("🌱 Buying " .. stock .. "x " .. seedName .. " seed(s)")
     
     for i = 1, stock do
         local success = pcall(function()
             if ReplicatedStorage:FindFirstChild("GameEvents") and ReplicatedStorage.GameEvents:FindFirstChild("BuySeedStock") then
                 ReplicatedStorage.GameEvents.BuySeedStock:FireServer(seedName)
             else
-               -- print("❌ BuySeedStock event not found")
+                print("❌ BuySeedStock event not found")
             end
         end)
         
         if not success then
-            --print("❌ Failed to buy seed: " .. seedName .. " (" .. i .. "/" .. stock .. ")")
+            print("❌ Failed to buy seed: " .. seedName .. " (" .. i .. "/" .. stock .. ")")
             break
         end
         
@@ -2947,23 +2946,23 @@ end
 local function BuyGear(gearName, buyAll)
     local stock = buyAll and GetItemStock(gearName, "gear") or 1
     if stock <= 0 then
-        --print("❌ No stock available for gear: " .. gearName)
+        print("❌ No stock available for gear: " .. gearName)
         return
     end
     
-    --print("⚙️ Buying " .. stock .. "x " .. gearName .. " gear(s)")
+    print("⚙️ Buying " .. stock .. "x " .. gearName .. " gear(s)")
     
     for i = 1, stock do
         local success = pcall(function()
             if ReplicatedStorage:FindFirstChild("GameEvents") and ReplicatedStorage.GameEvents:FindFirstChild("BuyGearStock") then
                 ReplicatedStorage.GameEvents.BuyGearStock:FireServer(gearName)
             else
-                --print("❌ BuyGearStock event not found")
+                print("❌ BuyGearStock event not found")
             end
         end)
         
         if not success then
-            --print("❌ Failed to buy gear: " .. gearName .. " (" .. i .. "/" .. stock .. ")")
+            print("❌ Failed to buy gear: " .. gearName .. " (" .. i .. "/" .. stock .. ")")
             break
         end
         
@@ -2977,19 +2976,19 @@ local function BuyEgg(eggName, buyAll)
     -- Eggs are typically unlimited, so just buy once unless buyAll is specified
     local count = buyAll and 5 or 1 -- Buy 5 if buyAll, otherwise 1
     
-    --print("🥚 Buying " .. count .. "x " .. eggName .. " egg(s)")
+    print("🥚 Buying " .. count .. "x " .. eggName .. " egg(s)")
     
     for i = 1, count do
         local success = pcall(function()
             if ReplicatedStorage:FindFirstChild("GameEvents") and ReplicatedStorage.GameEvents:FindFirstChild("BuyPetEgg") then
                 ReplicatedStorage.GameEvents.BuyPetEgg:FireServer(eggName)
             else
-                --print("❌ BuyPetEgg event not found")
+                print("❌ BuyPetEgg event not found")
             end
         end)
         
         if not success then
-            --print("❌ Failed to buy egg: " .. eggName .. " (" .. i .. "/" .. count .. ")")
+            print("❌ Failed to buy egg: " .. eggName .. " (" .. i .. "/" .. count .. ")")
             break
         end
         
@@ -3004,18 +3003,18 @@ local function BuyCosmetic(cosmeticName, isCrate)
         if ReplicatedStorage:FindFirstChild("GameEvents") then
             if isCrate and ReplicatedStorage.GameEvents:FindFirstChild("BuyCosmeticCrate") then
                 ReplicatedStorage.GameEvents.BuyCosmeticCrate:FireServer(cosmeticName)
-               -- print("🎨 Buying cosmetic crate: " .. cosmeticName)
+                print("🎨 Buying cosmetic crate: " .. cosmeticName)
             elseif ReplicatedStorage.GameEvents:FindFirstChild("BuyCosmeticItem") then
                 ReplicatedStorage.GameEvents.BuyCosmeticItem:FireServer(cosmeticName)
-               -- print("🎨 Buying cosmetic item: " .. cosmeticName)
+                print("🎨 Buying cosmetic item: " .. cosmeticName)
             else
-               -- print("❌ Cosmetic buy events not found")
+                print("❌ Cosmetic buy events not found")
             end
         end
     end)
     
     if not success then
-       -- print("❌ Failed to buy cosmetic: " .. cosmeticName)
+        print("❌ Failed to buy cosmetic: " .. cosmeticName)
     end
 end
 
@@ -3084,13 +3083,13 @@ end
 local function BuySelectedTravelling()
     for itemName, itemData in pairs(selectedTravellingItems) do
         -- Travelling merchant items would use specific events based on merchant type
-       -- print("🛒 Buying travelling item: " .. itemName)
+        print("🛒 Buying travelling item: " .. itemName)
         task.wait(0.5)
     end
 end
 
 local function BuyAllTravelling()
-   -- print("🛒 Buy All Travelling Merchant items (merchant detection needed)")
+    print("🛒 Buy All Travelling Merchant items (merchant detection needed)")
 end
 
 -- Auto-buy state tracking
@@ -3149,7 +3148,7 @@ local function IsTimeToRetryAfterRestock(shopType)
     if currentTime >= nextBuyTime then
         autoBuyState[stateKey] = false
         autoBuyState[shopType .. "FailCount"] = 0
-        --print("🕐 Restock time reached for " .. shopType .. ", resuming auto-buy")
+        print("🕐 Restock time reached for " .. shopType .. ", resuming auto-buy")
         return true
     end
     
@@ -3192,7 +3191,7 @@ local function TryAutoBuySeeds()
             autoBuyState.seedWaitingForRestock = true
             local nextBuyTime = GetNextRestockBuyTime()
             local timeStr = os.date("%H:%M:%S", nextBuyTime)
-            --print("🌱 No seed stock after 10 attempts, waiting until " .. timeStr)
+            print("🌱 No seed stock after 10 attempts, waiting until " .. timeStr)
         end
     else
         autoBuyState.seedFailCount = 0
@@ -3234,7 +3233,7 @@ local function TryAutoBuyGear()
             autoBuyState.gearWaitingForRestock = true
             local nextBuyTime = GetNextRestockBuyTime()
             local timeStr = os.date("%H:%M:%S", nextBuyTime)
-            --print("⚙️ No gear stock after 10 attempts, waiting until " .. timeStr)
+            print("⚙️ No gear stock after 10 attempts, waiting until " .. timeStr)
         end
     else
         autoBuyState.gearFailCount = 0
@@ -3411,12 +3410,12 @@ end)
 
 -- Manual buy buttons (distributed across columns)
 local manualButtonsColumn1 = Instance.new("Frame")
-manualButtonsColumn1.Size = UDim2.new(1, 0, 0, 80)
+manualButtonsColumn1.Size = UDim2.new(1, 0, 0, 100)
 manualButtonsColumn1.BackgroundTransparency = 1
 manualButtonsColumn1.Parent = column1
 
 local manualButtonsColumn2 = Instance.new("Frame")
-manualButtonsColumn2.Size = UDim2.new(1, 0, 0, 80)
+manualButtonsColumn2.Size = UDim2.new(1, 0, 0, 100)
 manualButtonsColumn2.BackgroundTransparency = 1
 manualButtonsColumn2.Parent = column2
 
@@ -3433,12 +3432,12 @@ buttonList2.Parent = manualButtonsColumn2
 -- Column 1 manual buttons
 local function CreateManualButton(parent, text, callback)
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, 0, 0, 28)
+    button.Size = UDim2.new(1, 0, 0, 35)
     button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
     button.BorderSizePixel = 0
     button.Text = text
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.TextSize = 11
+    button.TextSize = 12
     button.Font = Enum.Font.GothamBold
     button.Parent = parent
     
@@ -3469,22 +3468,5 @@ end)
 
 -- Start the auto-buy loop
 StartAutoBuyLoop()
-local refreshButton1 = Instance.new("TextButton")
-        refreshButton1.Size = UDim2.new(1, 0, 0, 32)
-        refreshButton1.Position = UDim2.new(0, 0, 0, 0)
-        refreshButton1.BackgroundColor3 = Color3.fromRGB(255, 70, 70)
-        refreshButton1.Text = "Reroll"
-        refreshButton1.TextColor3 = Color3.fromRGB(255, 255, 255)
-        refreshButton1.TextSize = 14
-        refreshButton1.Font = Enum.Font.Gotham
-        refreshButton1.BorderSizePixel = 0
-        refreshButton1.Parent = sidebar
 
-        local refreshCorner1 = Instance.new("UICorner")
-        refreshCorner1.CornerRadius = UDim.new(0, 8)
-        refreshCorner1.Parent = refreshButton1
-
-        refreshButton1.MouseButton1Click:Connect(function()
-            performReroll()
-        end)
---print("🛒 Shop UI loaded successfully!")
+print("🛒 Shop UI loaded successfully!")
